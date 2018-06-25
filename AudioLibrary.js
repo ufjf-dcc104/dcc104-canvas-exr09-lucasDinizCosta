@@ -101,6 +101,13 @@ AudioLibrary.prototype.isEnded = function (key) {       //Se o audio terminou de
   return true;                                            //Audio não foi iniciado
 };
 
+AudioLibrary.prototype.isPlaying = function(key){
+  if(this.currentTime(key) > 0 && this.currentTime(key) < this.duration(key)){
+    return true;
+  }
+  return false;
+}
+
 AudioLibrary.prototype.duration = function (key) {        //tempo de duração do audio
   return this.audios[key].duration;
 };
