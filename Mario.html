@@ -128,6 +128,10 @@
     player.sprite.map = levelAtual.mapa;
     player.sprite.x = levelAtual.startX;
     player.sprite.y = levelAtual.startY;
+    player.sprite.imagem = "MainActors";
+    player.sprite.sx = 80.5;
+    player.sprite.sy = 34.5;
+    player.sprite.s = 15;
 
     var teasuresCollected = 0;
 
@@ -138,6 +142,7 @@
     imageLibrary.load("sandBlock", "Imagens/Minecraft/Sand.png");
     imageLibrary.load("tijoloEspinho", "Imagens/tijolo-espinho.png");
     imageLibrary.load("BG", "Imagens/BG.jpg");
+    imageLibrary.load("MainActors", "Imagens/MainActors(Sprites).png");
 
     var audioLibrary = new AudioLibrary();
     audioLibrary.load("hurt", "Audios/classic_hurt.ogg");
@@ -479,8 +484,8 @@
             }*/
             break;
           case 39:
-            player.sprite.vx = 0;
             player.sprite.ax = 0;
+            player.sprite.vx = 0;
             break;
           case 32:
             //player.sprite.ay = 0;

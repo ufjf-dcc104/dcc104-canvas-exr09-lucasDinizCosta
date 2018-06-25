@@ -21,4 +21,5 @@ Player.prototype.mover = function(dt){
 
 Player.prototype.desenhar = function(ctx){
   this.sprite.desenhar(ctx);
+
 }

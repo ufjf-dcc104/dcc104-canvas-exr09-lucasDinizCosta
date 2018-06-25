@@ -12,10 +12,11 @@ function Sprite() {
   //Atributos de grade
   this.gx = 0;
   this.gy = 0;
-  this.s = 8;
+  this.s = 16;
   this.map;
 
   //Atributos da imagem
+  this.imagem = "";
   this.wImagem = 0;
   this.hImagem = 0;
   this.sx = 0;
@@ -109,12 +110,15 @@ Sprite.prototype.mover = function (dt) {
 Sprite.prototype.desenhar = function (ctx) {
   ctx.save();
   ctx.translate(this.x, this.y);
-  ctx.fillStyle = "white";
+  //ctx.fillStyle = "rgb(92, 148, 252)";
+  //ctx.fillRect(-this.s/2, -this.s/2, this.s, this.s);
+  imageLibrary.drawClipSize(ctx, this.imagem, this.sx, this.sy, this.s, this.s, -this.s/2, -this.s/2, this.s, this.s);
+  /*ctx.fillStyle = "white";
   ctx.strokeStyle = "red";
   ctx.fillRect(-this.s/2, -this.s/2, this.s, this.s);
-  ctx.strokeRect(-this.s/2, -this.s/2, this.s, this.s);
+  ctx.strokeRect(-this.s/2, -this.s/2, this.s, this.s);*/
   ctx.restore();
-  this.desenharCell(ctx);         //Debug mode Grid
+  //this.desenharCell(ctx);         //Debug mode Grid
 };
 
 Sprite.prototype.desenharCell = function(ctx){
