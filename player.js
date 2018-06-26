@@ -45,9 +45,9 @@ function Player() {
 
 Player.prototype.mover = function(dt){
   this.sprite.mover(dt);
-  if(this.sprite.map.cell[this.sprite.gy+1][this.sprite.gx] == 1){
+  /*if(this.sprite.map.cell[this.sprite.gy+1][this.sprite.gx] == 1){
     this.jumpState = false;
-  }
+  }*/
   /*if((this.sprite.vx != 0 || this.sprite.vy != 0) && (this.timeWalkSound <= 0)){
     audioLibrary.play("sandWalk");
     this.timeWalkSound = 0.5;
@@ -67,7 +67,7 @@ Player.prototype.desenhar = function(ctx){
     }
   }
   else{
-    //console.log("foi  " + this.jumpState);
+    console.log("foi  " + this.jumpState);
     this.trocarAnimacaoPulo();
   }
   if(this.sentidoMovimento){
@@ -75,6 +75,10 @@ Player.prototype.desenhar = function(ctx){
   }
   else{
     this.sprite.desenharInvertido(ctx);
+  }
+  if(this.sprite.map.cell[this.sprite.gy+1][this.sprite.gx] == 1){
+    //console.log(this.sprite.map.cell[this.sprite.gy+1][this.sprite.gx]);
+    this.jumpState = false;
   }
 }
 
@@ -111,7 +115,7 @@ Player.prototype.trocarAnimacaoCorrida = function () {
     this.tempoAnimacao = this.tempoAnimacao - 12*dt;
 };
 
-Player.prototype.trocaAnimacaoPulo = function(){
+Player.prototype.trocarAnimacaoPulo = function(){
   this.sprite.sx = this.animation[5].sx;
   this.sprite.sy = this.animation[5].sy;
 }
