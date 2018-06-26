@@ -110,13 +110,16 @@ Sprite.prototype.mover = function (dt) {
 Sprite.prototype.desenhar = function (ctx) {
   ctx.save();
   ctx.translate(this.x, this.y);
-  //ctx.fillStyle = "rgb(92, 148, 252)";
-  //ctx.fillRect(-this.s/2, -this.s/2, this.s, this.s);
   imageLibrary.drawClipSize(ctx, this.imagem, this.sx, this.sy, this.s, this.s, -this.s/2, -this.s/2, this.s, this.s);
-  /*ctx.fillStyle = "white";
-  ctx.strokeStyle = "red";
-  ctx.fillRect(-this.s/2, -this.s/2, this.s, this.s);
-  ctx.strokeRect(-this.s/2, -this.s/2, this.s, this.s);*/
+  ctx.restore();
+  //this.desenharCell(ctx);         //Debug mode Grid
+};
+
+Sprite.prototype.desenharInvertido = function (ctx) {
+  ctx.save();
+  ctx.translate(this.x, this.y);
+  ctx.scale(-1,1);
+  imageLibrary.drawClipSize(ctx, this.imagem, this.sx, this.sy, this.s, this.s, +this.s/2, -this.s/2, -this.s, this.s);
   ctx.restore();
   //this.desenharCell(ctx);         //Debug mode Grid
 };

@@ -7,7 +7,6 @@
     <script src="Level.js"></script>
     <script src="player.js"></script>
     <script src="Sprite.js"></script>
-    <script src="teleporter.js"></script>
   	<script src="ImageLibrary.js" charset="utf-8"></script>
     <script src="AudioLibrary.js" charset="utf-8"></script>
   </head>
@@ -129,9 +128,9 @@
     player.sprite.x = levelAtual.startX;
     player.sprite.y = levelAtual.startY;
     player.sprite.imagem = "MainActors";
-    player.sprite.sx = 80.5;
-    player.sprite.sy = 34.5;
-    player.sprite.s = 15;
+    player.sprite.sx = 80.5;//80.5;
+    player.sprite.sy = 34.5;//34.5;
+    player.sprite.s = 15;//16;
 
     var teasuresCollected = 0;
 
@@ -380,9 +379,11 @@
         switch (e.keyCode) {
           case 37:
             player.sprite.ax = -playerVel;
+            player.sentidoMovimento = false;
             break;
           case 39:
             player.sprite.ax = +playerVel;
+            player.sentidoMovimento = true;
             break;
           case 32:  //Espaco  -- Ativa teleporte
             //player.sprite.ay = -playerVel*;
