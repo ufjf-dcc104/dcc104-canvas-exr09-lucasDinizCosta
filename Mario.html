@@ -2,7 +2,7 @@
 <html lang="pt" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Jogo 08 - Mario</title>
+    <title>Jogo 09 - Mario</title>
     <script src="Map.js"></script>
     <script src="Level.js"></script>
     <script src="player.js"></script>
@@ -11,7 +11,7 @@
     <script src="AudioLibrary.js" charset="utf-8"></script>
   </head>
   <body>
-	<h1>Jogo 08 - Mario</h1>
+	<h1>Jogo 09 - Mario</h1>
     <canvas id="canvas" width="600" height="414">
 		Seu browser não suporta canvas!
 	</canvas>
@@ -27,7 +27,7 @@
     var sizeMap = 16;   //16
     var levelAtual = new Level(widthMap, heightMap, sizeMap);
     var levels = [];
-    var G = 200;
+    var G = 250;
     levels.push(new Level(widthMap, heightMap, sizeMap));
     levels.push(new Level(widthMap, heightMap, sizeMap));
     levels.push(new Level(widthMap, heightMap, sizeMap));
@@ -49,7 +49,7 @@
       [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
       [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
       [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-      [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+      [1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
     ];
     levels[0].startX = 16 + player.sprite.s;
     levels[0].startGX = 1;
@@ -63,58 +63,6 @@
     levels[0].sy = 20;
     levels[0].wImagemFundo = sizeMap*widthMap-1;
     levels[0].hImagemFundo = sizeMap*heightMap-5;
-    /*levels[0].mapLevel = [
-      [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-      [1,0,0,0,0,0,0,0,4,0,0,0,0,0,4,0,0,0,1],
-      [1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1],
-      [1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1],
-      [1,4,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1],
-      [1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1],
-      [1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1],
-      [1,3,1,10,0,10,0,10,0,10,0,10,0,10,0,10,1,0,1],
-      [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1],
-      [1,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-      [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-    ];
-    levels[0].startX = mapa.s + player.sprite.s;
-    levels[0].startY = 9*mapa.s + player.sprite.s;*/
-
-    levels[1].mapa.cell = [   //Fase 2
-      [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-      [1,2,0,0,0,0,0,4,1,1,1,1,1,1,1,1,1,3,1],
-      [1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1],
-      [1,1,0,1,4,5,5,5,0,0,0,0,0,0,0,0,0,0,1],
-      [1,1,0,1,6,1,1,1,0,1,1,1,1,1,1,1,1,0,1],
-      [1,1,0,1,5,1,4,1,0,1,1,1,1,1,1,1,1,0,1],
-      [1,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,1],
-      [1,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,5,1],
-      [1,5,1,1,1,1,1,5,4,1,1,1,1,1,1,1,5,5,1],
-      [1,5,5,5,5,5,5,5,6,1,1,1,1,1,1,1,4,6,1],
-      [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-    ];
-    levels[1].startX = levelAtual.mapa.s + player.sprite.s;
-    levels[1].startGX = 1;
-    levels[1].startY = 1*levelAtual.mapa.s + player.sprite.s;
-    levels[1].startGY = 1;
-    levels[1].tesouros = 5;
-    levels[1].finishGX = 17;
-    levels[1].finishGY = 1;
-    levels[1].minas = 3;
-    /*levels[3].mapLevel = [
-      [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-      [1,0,0,0,0,0,0,0,4,0,0,0,0,0,4,0,0,0,1],
-      [1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1],
-      [1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1],
-      [1,4,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1],
-      [1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1],
-      [1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1],
-      [1,3,1,10,0,10,0,10,0,10,0,10,0,10,0,10,1,0,1],
-      [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1],
-      [1,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-      [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-    ];
-    levels[3].startX = mapa.s + player.sprite.s;
-    levels[3].startY = 9*mapa.s + player.sprite.s;*/
 
     var anterior = dt = 0;
 	  var tempoGameOver = 2;
@@ -201,32 +149,6 @@
               /*if(audioLibrary.isPlaying("BGM")==false){
                 audioLibrary.play("BGM");
               }*/
-              player.mover(dt);
-              ctx.save();
-              //if(player.sprite.x > 150)
-              ctx.translate(-player.sprite.x+levelAtual.mapa.s, 0);
-              ctx.scale(2,2);
-
-              //ctx.translate(-pc.x+mapa.s*5, -pc.y+mapa.s*5);
-              levelAtual.desenhar(ctx);
-              player.desenhar(ctx);
-              ctx.restore();
-              tempoRectExt.desenharTempo(ctx);
-              tempoRectInt.desenharTempo(ctx);
-              ctx.font = "15px Arial Black";
-              ctx.fillStyle = "white";
-              ctx.textAlign = alignMainMenu;
-              ctx.lineWidth = 2;
-              ctx.strokeStyle = "black";
-              ctx.strokeText("Tempo: ", 55, 20);
-              ctx.fillText("Tempo: ", 55, 20);
-              ctx.strokeText("Vidas: "+ player.vidas, 300, 20);
-              ctx.fillText("Vidas: "+ player.vidas, 300, 20);
-              ctx.strokeText("Tesouros: "+ teasuresCollected, 430, 20);
-              ctx.fillText("Tesouros: "+ teasuresCollected, 430, 20);
-              ctx.strokeText("Level: "+ player.levelNumber, 545, 20);
-              ctx.fillText("Level: "+ player.levelNumber, 545, 20);
-
               if(tempoTransicaoFase <= 0){
                 tempoTransicaoFase = 1;
                 tempoRectInt.w = tempoRectInt.w - levelAtual.taxaDiminuicaoTempo;
@@ -237,35 +159,63 @@
               else if(tempoTransicaoFase > 0 && tempoRectInt.w > 0){
                   tempoTransicaoFase = tempoTransicaoFase - dt;
               }
-              if(levelAtual.mapa.cell[player.sprite.gy][player.sprite.gx]===4){
-                teasuresCollected++;
-                audioLibrary.play("treasureCollect");
-                levelAtual.mapa.cell[player.sprite.gy][player.sprite.gx] = 0;
-              }
-              if(tempoRectInt.w===0||levelAtual.mapa.cell[player.sprite.gy][player.sprite.gx]===6){
-                /*if(audioLibrary.isPlaying("BGM")){
-                  audioLibrary.stop("BGM");
-                }*/
-                if(levelAtual.mapa.cell[player.sprite.gy][player.sprite.gx]===6){
-                  audioLibrary.play("hurt");
-                  audioLibrary.play("explode");
-                  levelAtual.mapa.cell[player.sprite.gy][player.sprite.gx] = 0;
-                  player.vidas = player.vidas - 1;
-                }
-                if(tempoRectInt.w===0){
-                  tempoRectInt.w = 125;
-                  player.vidas = player.vidas - 1;
-                }
-                if(player.vidas === 0){   //GameOver
-                  estado = 2;
-                }
-                player.sprite.x = levelAtual.startX;
-                player.sprite.y = levelAtual.startY;
-              }
-              /*if(teasuresCollected===levelAtual.tesouros &&(player.sprite.gx===levelAtual.finishGX)&&(player.sprite.gy===levelAtual.finishGY)){
-                estado = 4;
-              }*/
+              player.mover(dt);
+              ctx.save();
+              ctx.translate(-player.sprite.x+levelAtual.mapa.s, 0);
+              ctx.scale(2,2);
+              if(player.sprite.taNoMapa()){
+                levelAtual.desenhar(ctx);
+                player.desenhar(ctx);
+                ctx.restore();
+                tempoRectExt.desenharTempo(ctx);
+                tempoRectInt.desenharTempo(ctx);
+                ctx.font = "15px Arial Black";
+                ctx.fillStyle = "white";
+                ctx.textAlign = alignMainMenu;
+                ctx.lineWidth = 2;
+                ctx.strokeStyle = "black";
+                ctx.strokeText("Tempo: ", 55, 20);
+                ctx.fillText("Tempo: ", 55, 20);
+                ctx.strokeText("Vidas: "+ player.vidas, 300, 20);
+                ctx.fillText("Vidas: "+ player.vidas, 300, 20);
+                ctx.strokeText("Tesouros: "+ teasuresCollected, 430, 20);
+                ctx.fillText("Tesouros: "+ teasuresCollected, 430, 20);
+                ctx.strokeText("Level: "+ player.levelNumber, 545, 20);
+                ctx.fillText("Level: "+ player.levelNumber, 545, 20);
 
+
+                if(levelAtual.mapa.cell[player.sprite.gy][player.sprite.gx]===4){
+                  teasuresCollected++;
+                  audioLibrary.play("treasureCollect");
+                  levelAtual.mapa.cell[player.sprite.gy][player.sprite.gx] = 0;
+                }
+                if(tempoRectInt.w===0||levelAtual.mapa.cell[player.sprite.gy][player.sprite.gx]===6){
+                  /*if(audioLibrary.isPlaying("BGM")){
+                    audioLibrary.stop("BGM");
+                  }*/
+                  if(levelAtual.mapa.cell[player.sprite.gy][player.sprite.gx]===6){
+                    audioLibrary.play("hurt");
+                    audioLibrary.play("explode");
+                    levelAtual.mapa.cell[player.sprite.gy][player.sprite.gx] = 0;
+                    player.vidas = player.vidas - 1;
+                  }
+                  if(tempoRectInt.w===0){
+                    tempoRectInt.w = 125;
+                    player.vidas = player.vidas - 1;
+                  }
+                  if(player.vidas === 0){   //GameOver
+                    estado = 2;
+                  }
+                  player.sprite.x = levelAtual.startX;
+                  player.sprite.y = levelAtual.startY;
+                }
+                /*if(teasuresCollected===levelAtual.tesouros &&(player.sprite.gx===levelAtual.finishGX)&&(player.sprite.gy===levelAtual.finishGY)){
+                  estado = 4;
+                }*/
+              }
+              else{
+                console.log("SAIU");
+              }
               break;
             case 1:         //Main menu
               limparTela();
@@ -331,6 +281,8 @@
               player.levelNumber = player.levelNumber + 1;
               loadLevel();
               break;
+            case 5:
+              break;
             default:
           }
         }
@@ -389,13 +341,14 @@
             //player.sprite.ay = -playerVel*;
             console.log("Teste");
             if(player.jumpState == false && player.sprite.map.cell[player.sprite.gy+1][player.sprite.gx] != 0){
-              player.sprite.vy = -200;
+              player.sprite.vy = -250;
+              //player.sprite.ay = -400;
               player.jumpState = true;
             }
 
             break;
           case 38:
-          player.sprite.vy = -125;
+            player.sprite.vy = -125;
             //player.sprite.vy = player.sprite.vy - 200;//200 - playerVel*dt;
             break;
           case 40:

@@ -67,8 +67,13 @@ Player.prototype.desenhar = function(ctx){
     }
   }
   else{
-    console.log("foi  " + this.jumpState);
-    this.trocarAnimacaoPulo();
+    //console.log("foi  " + this.jumpState);
+    if(this.sprite.vy != 0){
+      this.trocarAnimacaoPulo();
+    }
+    else{
+      this.jumpState = false;
+    }
   }
   if(this.sentidoMovimento){
     this.sprite.desenhar(ctx);
@@ -76,10 +81,10 @@ Player.prototype.desenhar = function(ctx){
   else{
     this.sprite.desenharInvertido(ctx);
   }
-  if(this.sprite.map.cell[this.sprite.gy+1][this.sprite.gx] == 1){
+  //if(this.sprite.map.cell[this.sprite.gy+1][this.sprite.gx] == 1){
     //console.log(this.sprite.map.cell[this.sprite.gy+1][this.sprite.gx]);
-    this.jumpState = false;
-  }
+    //this.jumpState = false;
+  //}
 }
 
 Player.prototype.trocarAnimacaoCorrida = function () {

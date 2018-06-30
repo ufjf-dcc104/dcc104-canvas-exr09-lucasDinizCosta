@@ -34,13 +34,20 @@ Sprite.prototype.teste = function(){
 Sprite.prototype.mover = function (dt) {
   this.gx = Math.floor(this.x/this.map.s);
   this.gy = Math.floor(this.y/this.map.s);
+  /*if(this.map.cell[this.gy+1][this.gx] == 0){     //Se está no vento ele não pode acelerar em x
+    this.ax = 0;
+  }*/
+  /*else{
+    this.vx = this.vx + this.ax*dt;
+  }*/
   this.vx = this.vx + this.ax*dt;
-  if(this.map.cell[this.gy][this.gx] ==0 && this.y+this.s/2 != this.gy+this.map.s){
-    this.vy = this.vy + (G+this.ay)*dt;
+  this.vy = this.vy + (G+this.ay)*dt;
+  /*if(this.map.cell[this.gy][this.gx] == 0 && this.y+this.s/2 != this.gy+this.map.s){
+
   }
   else{
     //this.vy = this.vy;
-  }
+  }*/
 
 
   /****************************************************************
@@ -52,44 +59,61 @@ Sprite.prototype.mover = function (dt) {
     this.y = this.gy*this.map.s + this.s;
   */
 
-  if(this.vx < 0 && this.map.cell[this.gy][this.gx-1]===1){
-    var limite = (this.gx)*this.map.s;
-    var maxDx = limite-(this.x-this.s/2);
-    var Dx = this.vx*dt;
-    this.x += Math.max(Dx, maxDx);
-  } else if( this.vx > 0 && this.map.cell[this.gy][this.gx+1]===1){
-    var limite = (this.gx+1)*this.map.s;
-    var maxDx = limite-(this.x+this.s/2);
-    var Dx = this.vx*dt;
-    this.x += Math.min(Dx, maxDx);
-  }else {
-    this.x += this.vx*dt;
+
+
+
+  if(this.taNoMapa()){
+    console.log("FOI - " + this.gy);
+    if(this.vx < 0 && this.map.cell[this.gy][this.gx-1]===1){
+      var limite = (this.gx)*this.map.s;
+      var maxDx = limite-(this.x-this.s/2);
+      var Dx = this.vx*dt;
+      this.x += Math.max(Dx, maxDx);
+      if(maxDx == 0){
+        this.vx = 0;
+      }
+    } else if( this.vx > 0 && this.map.cell[this.gy][this.gx+1]===1){
+      var limite = (this.gx+1)*this.map.s;
+      var maxDx = limite-(this.x+this.s/2);
+      var Dx = this.vx*dt;
+      this.x += Math.min(Dx, maxDx);
+      if(maxDx == 0){
+        this.vx = 0;
+      }
+    }else {
+      this.x += this.vx*dt;
+    }
+    //Ponto central do sprite é o meio, logo compara com metade somente
+    //Tem alguns bugs em entrar parte nos blocos não permitidos
+    if((this.vy)<0 && this.map.cell[this.gy-1][this.gx]===1){
+      var limite = (this.gy)*this.map.s;
+      var maxDy = limite-(this.y-this.s/2);
+      var Dy = this.vy*dt;
+      this.y += Math.max(Dy, maxDy);
+      if(maxDy == 0){
+          this.vy = 0;
+      }
+    } else if((this.vy) >0 && this.map.cell[this.gy+1][this.gx]===1){
+      var limite = (this.gy+1)*this.map.s;
+      var maxDy = limite-(this.y+this.s/2);
+      var Dy = this.vy*dt;
+      this.y += Math.min(Dy, maxDy);
+      if(maxDy == 0){           //Se está no chão zera sua velocidade em Y pois não está caindo
+        this.vy = 0;
+      }
+    }else {
+      this.y += this.vy*dt;
+    }
+
+    if(this.map.cell[this.gy][this.gx] === 5){    //Substitui o cenário já descoberto
+      this.map.cell[this.gy][this.gx] = 0;
+    }
   }
-
-  /*if(this.vx === 0 && this.map.cell[this.gy][this.gx+1]!==0 && (this.x*this.s > (this.gx)*this.map.s)){
-    console.log("FOI");
-    var limite = (this.gx+1)*this.map.s;
-    var maxDx = limite-(this.x+this.s/2);
-    var Dx = this.vx*dt;
-    this.x += Math.min(Dx, maxDx);
-  }*/
-
-  //Ponto central do sprite é o meio, logo compara com metade somente
-  //Tem alguns bugs em entrar parte nos blocos não permitidos
-
-  if((this.vy)<0 && this.map.cell[this.gy-1][this.gx]===1){
-    var limite = (this.gy)*this.map.s;
-    var maxDy = limite-(this.y-this.s/2);
-    var Dy = this.vy*dt;
-    this.y += Math.max(Dy, maxDy);
-  } else if((this.vy) >0 && this.map.cell[this.gy+1][this.gx]===1){
-    var limite = (this.gy+1)*this.map.s;
-    var maxDy = limite-(this.y+this.s/2);
-    var Dy = this.vy*dt;
-    this.y += Math.min(Dy, maxDy);
-  }else {
+  else{   //Saiu do mapa mas continua se movendo
+    this.x += this.vx*dt;
     this.y += this.vy*dt;
   }
+
 
   /*if((this.vx === 0 && this.map.cell[this.gy][this.gx+1]!==0 && (this.x+this.s/2 > (this.gx+1)*this.map.s))
     ||(this.vx === 0 && this.map.cell[this.gy][this.gx+1]!==0 && (this.x+this.s/2 > (this.gx+1)*this.map.s))){ //Lado esquerdo
@@ -99,20 +123,27 @@ Sprite.prototype.mover = function (dt) {
     var Dx = this.vx*dt;
     this.x += Math.min(Dx, maxDx);
   }*/
-  if(this.map.cell[this.gy][this.gx] === 5){    //Substitui o cenário já descoberto
-    this.map.cell[this.gy][this.gx] = 0;
-  }
+
 
 
 
 };
+
+Sprite.prototype.taNoMapa = function(){
+  if(this.gy >= 0 && this.gy < (this.map.h-1) && this.gx >= 0 && this.gx < (this.map.w-1)){
+    return true;
+  }
+  else{
+    return false;
+  }
+}
 
 Sprite.prototype.desenhar = function (ctx) {
   ctx.save();
   ctx.translate(this.x, this.y);
   imageLibrary.drawClipSize(ctx, this.imagem, this.sx, this.sy, this.s, this.s, -this.s/2, -this.s/2, this.s, this.s);
   ctx.restore();
-  //this.desenharCell(ctx);         //Debug mode Grid
+  this.desenharCell(ctx);         //Debug mode Grid
 };
 
 Sprite.prototype.desenharInvertido = function (ctx) {
@@ -121,11 +152,12 @@ Sprite.prototype.desenharInvertido = function (ctx) {
   ctx.scale(-1,1);
   imageLibrary.drawClipSize(ctx, this.imagem, this.sx, this.sy, this.s, this.s, +this.s/2, -this.s/2, -this.s, this.s);
   ctx.restore();
-  //this.desenharCell(ctx);         //Debug mode Grid
+  this.desenharCell(ctx);         //Debug mode Grid
 };
 
 Sprite.prototype.desenharCell = function(ctx){
   ctx.strokeStyle = "white";
+  ctx.lineWidth = 1;
   ctx.strokeRect(this.gx*this.map.s, this.gy*this.map.s, this.map.s, this.map.s)
 };
 
