@@ -68,7 +68,7 @@
 	  var tempoGameOver = 2;
     var tempoTransicaoFase = 1;     //Tempo que decai um pouco da barra
 
-    var estado = 0;
+    var estado = 1;
     var playerVel = 180;
 
     levelAtual.clonarLevel(levels[0]);
@@ -163,11 +163,9 @@
               }
               else if(tempoTransicaoFase > 0 && tempoRectInt.w > 0){
                   tempoTransicaoFase = tempoTransicaoFase - dt;
-                  //console.log(tempoTransicaoFase);
               }
 
               player.mover(dt);
-              //player.sprite.impoeLimites(0,0,tela.width,tela.height);
 
               if(player.sprite.taNoMapa()){
                 ctx.save();
@@ -264,9 +262,6 @@
               break;
             case 2:
               limparTela2();
-              /*if(audioLibrary.play("gameover")==false){
-                audioLibrary.play("gameover");
-              };*/
               ctx.fillStyle = "white";
               ctx.textAlign = alignMainMenu;
               ctx.font = "40px Arial Black";
@@ -274,7 +269,6 @@
               ctx.strokeStyle = "black";
               ctx.strokeText("GAME OVER", tela.width/2, tela.height/2);
               ctx.fillText("GAME OVER", tela.width/2, tela.height/2);
-
               if(tempoGameOver >= 0){
                   tempoGameOver = tempoGameOver - 0.7*dt;
               }
@@ -316,18 +310,12 @@
 
     function limparTela() {
       ctx.fillStyle = "rgb(92, 148, 252)";
-      //ctx.fillRect(0, 0, 1000, this.mapa.height);
-      //ctx.fillStyle = "black";
       ctx.fillRect(0,0, tela.width, tela.height);
-      //ctx.clearRect(0, 0, canvas.width, canvas.height);
     }
 
     function limparTela2() {
       ctx.fillStyle = "black";
-      //ctx.fillRect(0, 0, 1000, this.mapa.height);
-      //ctx.fillStyle = "black";
       ctx.fillRect(0,0, tela.width, tela.height);
-      //ctx.clearRect(0, 0, canvas.width, canvas.height);
     }
 
 	 function getRandomArbitrary(min, max){
@@ -362,7 +350,6 @@
             break;
           case 32:  //Espaco  -- Ativa teleporte
             //player.sprite.ay = -playerVel*;
-            console.log("Teste");
             if(player.jumpState == false && player.sprite.map.cell[player.sprite.gy+1][player.sprite.gx] != 0){
               player.sprite.vy = -230;
               //player.sprite.ay = -400;
@@ -406,6 +393,10 @@
                   player.sprite.map = levelAtual.mapa;
                   player.sprite.x = levelAtual.startX;
                   player.sprite.y = levelAtual.startY;
+                  player.sprite.imagem = "MainActors";
+                  player.sprite.sx = 80.5;//80.5;
+                  player.sprite.sy = 34.5;//34.5;
+                  player.sprite.s = 15;//16;
                   estado = 0;
                 }
                 else{
@@ -421,6 +412,10 @@
                   player.sprite.map = levelAtual.mapa;
                   player.sprite.x = levelAtual.startX;
                   player.sprite.y = levelAtual.startY;
+                  player.sprite.imagem = "MainActors";
+                  player.sprite.sx = 80.5;//80.5;
+                  player.sprite.sy = 34.5;//34.5;
+                  player.sprite.s = 15;//16;
                   estado = 0;
                 }
                 else{
