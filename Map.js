@@ -18,20 +18,20 @@ Map.prototype.desenhar = function (ctx) {
       if(this.cell[l][c] === 0){                  //Vazio
         //ctx.fillStyle = "black";
         //ctx.strokeStyle = "grey";
-        imageLibrary.drawSize(ctx, "sandGround", c*this.s, l*this.s, this.s, this.s);
+        //imageLibrary.drawSize(ctx, "sandGround", c*this.s, l*this.s, this.s, this.s);
         //ctx.fillRect(c*this.s, l*this.s, this.s, this.s);
         //ctx.strokeRect(c*this.s, l*this.s, this.s, this.s);
       } else if(this.cell[l][c] === 1){          //Bloqueado
         //ctx.strokeStyle = "grey";
         imageLibrary.drawSize(ctx, "brickRed", c*this.s, l*this.s, this.s, this.s);
         //ctx.strokeRect(c*this.s, l*this.s, this.s, this.s);
-      } else if(this.cell[l][c] === 2){           //Local de saida
-
-        ctx.strokeStyle = "darkBlue";
+      } else if(this.cell[l][c] === 2){           //Moeda
+        imageLibrary.drawClipSize(ctx, "Objects", 0, 81, 16, 16, c*this.s, l*this.s, this.s, this.s);
+        /*ctx.strokeStyle = "darkBlue";
         ctx.fillStyle = "lightBlue";
         ctx.linewidth = 10;
         ctx.fillRect(c*this.s, l*this.s, this.s, this.s);
-        ctx.strokeRect(c*this.s, l*this.s, this.s, this.s);
+        ctx.strokeRect(c*this.s, l*this.s, this.s, this.s);*/
 
         //imageLibrary.drawClipSize(ctx, "sandBlock", 0, 0, 80, 80, c*this.s, l*this.s, this.s, this.s);
         /*ctx.fillStyle = "lightBlue";

@@ -59,11 +59,8 @@ Sprite.prototype.mover = function (dt) {
     this.y = this.gy*this.map.s + this.s;
   */
 
-
-
-
   if(this.taNoMapa()){
-    console.log("FOI - " + this.gy);
+    //console.log("FOI - " + this.gy);
     if(this.vx < 0 && this.map.cell[this.gy][this.gx-1]===1){
       var limite = (this.gx)*this.map.s;
       var maxDx = limite-(this.x-this.s/2);
@@ -123,6 +120,10 @@ Sprite.prototype.mover = function (dt) {
     var Dx = this.vx*dt;
     this.x += Math.min(Dx, maxDx);
   }*/
+  /*if(this.map.cell[this.gy][this.gx] === 2){    //Substitui o cenário da moeda coletada
+    audioLibrary.play("coin");
+    this.map.cell[this.gy][this.gx] = 0;
+  }*/
 
 
 
@@ -130,7 +131,7 @@ Sprite.prototype.mover = function (dt) {
 };
 
 Sprite.prototype.taNoMapa = function(){
-  if(this.gy >= 0 && this.gy < (this.map.h-1) && this.gx >= 0 && this.gx < (this.map.w-1)){
+  if(this.gy > -1 && this.gy < (this.map.h-1) && this.gx >= 0 && this.gx < (this.map.w-1)){
     return true;
   }
   else{
