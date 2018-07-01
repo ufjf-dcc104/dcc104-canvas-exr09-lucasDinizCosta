@@ -6,10 +6,6 @@ function Level(w,h,s) {
   this.startY = 0;
   this.startGX = 0;
   this.startGY = 0;
-  this.finishX = 0;
-  this.finishY = 0;
-  this.finishGX = 0;
-  this.finishGY = 0;
   this.tempoFase = 0;
   this.taxaDiminuicaoTempo = 0;
   this.stateCollectedItens = false;
@@ -49,10 +45,6 @@ Level.prototype.clonarLevel= function(level){
   this.startY = level.startY;
   this.startGX = level.startGX;
   this.startGY = level.startGY;
-  this.finishX = level.finishX;
-  this.finishY = level.finishY;
-  this.finishGX = level.finishGX;
-  this.finishGY = level.finishGY;
   this.stateCollectedItens = level.stateCollectedItens;
   this.tempoFase = level.tempoFase;
   this.taxaDiminuicaoTempo = level.taxaDiminuicaoTempo;
@@ -86,84 +78,13 @@ Level.prototype.desenhar = function(ctx) {
     for (var c = 0; c < this.mapa.w; c++) {
       if(this.mapa.cell[l][c] === 0){                  //Vazio
         ctx.fillStyle = "rgb(92, 148, 252)";
-        //ctx.strokeStyle = "grey";
-        //console.log(l*this.mapa.s);
-        //imageLibrary.drawSize(ctx, "sandGround", c*this.mapa.s, l*this.mapa.s, this.mapa.s, this.mapa.s);
         ctx.fillRect(c*this.mapa.s, l*this.mapa.s, this.mapa.s, this.mapa.s);
-        //ctx.strokeRect(c*this.mapa.s, l*this.mapa.s, this.mapa.s, this.mapa.s);
       } else if(this.mapa.cell[l][c] === 1){          //Bloqueado
-        //ctx.strokeStyle = "grey";
         imageLibrary.drawSize(ctx, "brickRed", c*this.mapa.s, l*this.mapa.s, this.mapa.s, this.mapa.s);
-        //ctx.strokeRect(c*this.s, l*this.s, this.s, this.s);
       } else if(this.mapa.cell[l][c] === 2){           //Moeda
-        //console.log("MOEDA");
         imageLibrary.drawClipSize(ctx, "Objects", 0, 81, 16, 16, c*this.mapa.s+this.mapa.s/4-1, l*this.mapa.s+this.mapa.s/4, this.mapa.s/2, this.mapa.s/2);
-        //ctx.strokeStyle = "white";
-        //ctx.lineWidth = 1;
-        /*ctx.fillStyle = "lightBlue";
-        ctx.linewidth = 10;
-        ctx.fillRect(c*this.mapa.s, l*this.mapa.s, this.mapa.s, this.mapa.s);*/
-        //ctx.strokeRect(c*this.mapa.s, l*this.mapa.s, this.mapa.s-1, this.mapa.s-1);
-
-        //imageLibrary.drawClipSize(ctx, "sandBlock", 0, 0, 80, 80, c*this.s, l*this.s, this.s, this.s);
-        /*ctx.fillStyle = "lightBlue";
-        ctx.strokeStyle = "grey";
-        ctx.fillRect(c*this.s, l*this.s, this.s, this.s);
-        ctx.strokeRect(c*this.s, l*this.s, this.s, this.s);*/
-      } else if(this.mapa.cell[l][c] === 3){          //local de chegada
-        ctx.strokeStyle = "Yellow";
-        ctx.fillStyle = "orange";
-        ctx.linewidth = 10;
-        imageLibrary.drawSize(ctx, "sandGround", c*this.mapa.s, l*this.mapa.s, this.mapa.s, this.mapa.s);
-        ctx.save();
-        if(this.tesouros != teasuresCollected){
-          ctx.globalAlpha = 0.40;         //Transparência
-        }
-        //console.log(this.tesouros+"  "+teasuresCollected);
-        ctx.fillRect(c*this.mapa.s, l*this.mapa.s, this.mapa.s, this.mapa.s);
-        ctx.strokeRect(c*this.mapa.s, l*this.mapa.s, this.mapa.s, this.mapa.s);
-        ctx.restore();
-      } else if(this.mapa.cell[l][c] === 4){           //Tesouro a pegar
-        imageLibrary.drawSize(ctx, "sandGround", c*this.mapa.s, l*this.mapa.s, this.mapa.s, this.mapa.s);
-        ctx.fillStyle = "yellow";
-        ctx.strokeStyle = "grey";
-        ctx.fillRect(c*this.mapa.s + this.mapa.s/3, l*this.mapa.s + this.mapa.s/3, this.mapa.s/3, this.mapa.s/3);
-        ctx.strokeRect(c*this.mapa.s + this.mapa.s/3, l*this.mapa.s + this.mapa.s/3, this.mapa.s/3, this.mapa.s/3);
-      } else if(this.mapa.cell[l][c] === 5){             //Terreno vazio
-        imageLibrary.drawSize(ctx, "sandGround", c*this.mapa.s, l*this.mapa.s, this.mapa.s, this.mapa.s);
-        imageLibrary.drawClipSize(ctx, "sandBlock", 0, 0, 80, 80, c*this.mapa.s, l*this.mapa.s, this.mapa.s, this.mapa.s);
-      } else if(this.mapa.cell[l][c] === 6){             //Terreno com mina
-        imageLibrary.drawSize(ctx, "sandGround", c*this.mapa.s, l*this.mapa.s, this.mapa.s, this.mapa.s);
-        imageLibrary.drawClipSize(ctx, "sandBlock", 0, 0, 80, 80,c*this.mapa.s, l*this.mapa.s, this.mapa.s, this.mapa.s);
-      } else if(this.mapa.cell[l][c] === 7){             //Teleporte
-        ctx.strokeStyle = "darkGreen";
-        ctx.fillStyle = "lightGreen";
-        ctx.linewidth = 10;
-        imageLibrary.drawSize(ctx, "sandGround", c*this.mapa.s, l*this.mapa.s, this.mapa.s, this.mapa.s);
-        ctx.save();
-        ctx.globalAlpha = 0.40;         //Transparência
-        ctx.fillRect(c*this.mapa.s, l*this.mapa.s, this.mapa.s, this.mapa.s);
-        ctx.strokeRect(c*this.mapa.s, l*this.mapa.s, this.mapa.s, this.mapa.s);
-        ctx.restore();
-      } else if(this.mapa.cell[l][c] === 8){             //Bloco lento
-        ctx.strokeStyle = "purple";
-        ctx.fillStyle = "purple";
-        ctx.linewidth = 10;
-        imageLibrary.drawSize(ctx, "sandGround", c*this.mapa.s, l*this.mapa.s, this.mapa.s, this.mapa.s);
-        ctx.save();
-        ctx.globalAlpha = 0.60;         //Transparência
-        ctx.fillRect(c*this.mapa.s, l*this.mapa.s, this.mapa.s, this.mapa.s);
-        ctx.strokeRect(c*this.mapa.s, l*this.mapa.s, this.mapa.s, this.mapa.s);
-        ctx.restore();
-      } else if(this.mapa.cell[l][c] === 9){             //Bloqueio com espinho
-        imageLibrary.drawSize(ctx, "sandGround", c*this.mapa.s, l*this.mapa.s, this.mapa.s, this.mapa.s);
+      } else if(this.mapa.cell[l][c] === 3){
         imageLibrary.drawSize(ctx, "tijoloEspinho", c*this.mapa.s, l*this.mapa.s, this.mapa.s, this.mapa.s);
-      } else if(this.mapa.cell[l][c] === 10){             //Posição do inimigo
-        ctx.strokeStyle = "darkgrey";
-        ctx.fillStyle = "grey";
-        ctx.linewidth = 10;
-        ctx.fillRect(c*this.mapa.s, l*this.mapa.s, this.mapa.s, this.mapa.s);
-        ctx.strokeRect(c*this.mapa.s, l*this.mapa.s, this.mapa.s, this.mapa.s);
       }
     }
   }

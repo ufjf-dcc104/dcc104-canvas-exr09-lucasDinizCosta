@@ -27,10 +27,6 @@ function Sprite() {
   this.borderSize = 1;
 };
 
-Sprite.prototype.teste = function(){
-  console.log("Teste");
-}
-
 Sprite.prototype.mover = function (dt) {
   this.gx = Math.floor(this.x/this.map.s);
   this.gy = Math.floor(this.y/this.map.s);

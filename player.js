@@ -45,13 +45,6 @@ function Player() {
 
 Player.prototype.mover = function(dt){
   this.sprite.mover(dt);
-  /*if(this.sprite.map.cell[this.sprite.gy+1][this.sprite.gx] == 1){
-    this.jumpState = false;
-  }*/
-  /*if((this.sprite.vx != 0 || this.sprite.vy != 0) && (this.timeWalkSound <= 0)){
-    audioLibrary.play("sandWalk");
-    this.timeWalkSound = 0.5;
-  }*/
 
 }
 
@@ -114,7 +107,6 @@ Player.prototype.trocarAnimacaoCorrida = function () {
         }
       }
     }
-    //console.log(this.estadoAnimacaoAtual);
     this.sprite.sx = this.animation[this.estadoAnimacaoAtual].sx;
     this.sprite.sy = this.animation[this.estadoAnimacaoAtual].sy;
     this.tempoAnimacao = this.tempoAnimacao - 12*dt;
